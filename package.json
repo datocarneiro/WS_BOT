@@ -1,0 +1,13 @@
+{
+  "name": "bot-atendimento",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "whatsapp-web.js": "^1.24.1",
+    "qrcode-terminal": "^0.12.0",
+    "node-fetch": "^3.3.2"
+  }
+}
