@@ -5,6 +5,7 @@ const { menus } = require("../menus");
 
 // Gera QR Code para autenticação
 client.on("qr", (qr) => {
+   console.log("QR bruto:", qr);
   qrcode.generate(qr, { small: false });
   console.log("📱 QR Code gerado, escaneie com seu WhatsApp!");
 });

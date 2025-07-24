@@ -1,5 +1,5 @@
 module.exports = {
-  MenuPrincipal: {
+  MAIN: {
     text: `Menu Principal – Escolha o departamento:
 1 - Operacional
 2 - Financeiro
