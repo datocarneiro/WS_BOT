@@ -16,8 +16,7 @@ module.exports = {
 13 - Materiais - Visualização de Estoque
 14 - Saldos e Estoques
 15 - Recebimentos
-16 - Transporte
-0 - Voltar`,
+16 - Transporte`,
     options: {
       "1": "https://www.youtube.com/watch?v=d_m_duoQ5ZY",
       "2": "https://www.youtube.com/watch?v=1byUDXaZLpQ",
@@ -35,7 +34,6 @@ module.exports = {
       "14": "https://www.youtube.com/watch?v=zHM4AQ7djSc",
       "15": "https://www.youtube.com/watch?v=l1pkH9CJ4Uo",
       "16": "https://www.youtube.com/watch?v=N9Ma1Sfyrf0",
-      "0": "Menu Principal"
     }
   }
 };
