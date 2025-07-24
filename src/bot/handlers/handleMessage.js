@@ -10,7 +10,7 @@ async function handleMessage(msg, client) {
 
   if (!users.has(contact)) {
     users.set(contact, { stage: "MAIN" });
-    await client.sendMessage(contact, randomGreeting());
+    await client.sendMessage(contact, greetings.randomGreeting());
     await client.sendMessage(contact, menus["MAIN"].text);
     return;
   }
