@@ -1,15 +1,17 @@
 const { menus } = require("../../../menus");
-const fetchPedido = require("../../utils/fetchPedido");
+const fetchPedido = require("../../utils/getPedido");
 
 async function handlePedidoERP(client, contact, body) {
   const pedido = body;
   await client.sendMessage(contact, `🔎 Consultando pedido ERP ${pedido}...`);
 
   try {
-    const dados = await fetchPedido(pedido);
+    const dados = await fetchPedido(pedido); // corrigido para usar fetchPedido, que é a função exportada
 
     if (!dados) {
       await client.sendMessage(contact, `⚠️ Pedido ${pedido} não encontrado.`);
+    } else if (dados.erro) {
+      await client.sendMessage(contact, `⚠️ Erro: ${dados.erro}`);
     } else {
       const nomeTransporte = dados.transportes?.[0]?.nome || "Não informado";
       const nomeDestinatario = dados.destinatario?.nome || "Não informado";
