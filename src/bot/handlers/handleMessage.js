@@ -7,7 +7,7 @@ const users = new Map();
 async function handleMessage(msg, client) {
     const contact = msg.from;
     const bodyRaw = msg.body.trim();
-    const body = bodyRaw.toLowerCase(); // normaliza entrada
+    const body = bodyRaw.toLowerCase();
 
     let user = users.get(contact);
 
@@ -28,7 +28,7 @@ async function handleMessage(msg, client) {
         return;
     }
 
-    // ➤ Voltar (menu anterior) mesmo após ações
+    // ➤ Voltar (menu anterior)
     if ((body === "00" || body === "voltar") && user.lastMenuStage) {
         user.stage = user.lastMenuStage;
         await client.sendMessage(contact, menus[user.stage].text);
@@ -43,36 +43,36 @@ async function handleMessage(msg, client) {
         return;
     }
 
-    const option = stage.options[bodyRaw]; // usa original para capturar "1", "2", etc.
+    let option = null;
+
+    if (!stage.input) {
+        option = stage.options[bodyRaw];
+
+        if (!option) {
+            await client.sendMessage(contact, "❌ Opção inválida. Tente novamente.");
+            await client.sendMessage(contact, stage.text);
+            return;
+        }
+    }
 
     // ➤ Entrada de dados (ex: pedido)
     if (stage.input) {
         if (user.stage === "OPERACIONAL_PEDIDO_INPUT") {
             await handlePedidoERP(client, contact, bodyRaw);
-            user.lastMenuStage = user.stage;  // guarda o menu de origem
+            user.lastMenuStage = user.stage;
             user.stage = "AWAITING_DECISION";
             await client.sendMessage(contact, "Escolha uma opção:\n00 - Voltar\n0 - Encerrar sessão");
             return;
         }
     }
 
-    // ➤ Opção inválida
-    if (!option) {
-        await client.sendMessage(contact, "❌ Opção inválida. Tente novamente.");
-        await client.sendMessage(contact, stage.text);
-        return;
-    }
-
-    // ➤ Navegação: foi para outro menu
     if (typeof option === "string" && menus[option]) {
-        user.lastMenuStage = user.stage;  // salva onde estava
+        user.lastMenuStage = user.stage;
         user.stage = option;
         await client.sendMessage(contact, menus[option].text);
-    } 
-    // ➤ Ação final (exibe link/resposta)
-    else {
+    } else if (option) {
         await client.sendMessage(contact, option);
-        user.lastMenuStage = user.stage;  // guarda para voltar
+        user.lastMenuStage = user.stage;
         user.stage = "AWAITING_DECISION";
         await client.sendMessage(contact, "Escolha uma opção:\n00 - Voltar\n0 - Encerrar sessão");
     }
