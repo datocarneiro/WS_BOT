@@ -191,6 +191,7 @@ module.exports = {
       }
 
       return data.shuffled[data.index++];
+
     }
-  }
 };
+

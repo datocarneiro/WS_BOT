@@ -15,6 +15,7 @@ module.exports = {
       "4": "Nosso horário de Recebimento de mercadorias: das 8h às 15h"
       "5": "Nosso horário de Expedição de pedidos: das 15h às 17h30"
       "6": "SKU_IMPUT"
+
     }
   },
   SKU_IMPUT: {
