@@ -19,11 +19,27 @@ client.on("ready", () => {
   console.log("✅ Bot está pronto!");
 });
 
+// //Recupera ID dos
+// client.on('ready', async () => {
+//     const chats = await client.getChats();
+
+//     const grupos = chats.filter(chat => chat.isGroup);
+
+//     grupos.forEach(group => {
+//         console.log(`Nome: ${group.name} | ID: ${group.id._serialized}`);
+//     });
+// });
+
+
 // Escuta as mensagens e processa
 client.on("message", async (msg) => {
-  await handleMessage(msg, client, menus);
+    // Ignora mensagens vindas de grupos
+    if (msg.from.endsWith('@g.us')) return;
 
+    // Processa apenas mensagens privadas
+    await handleMessage(msg, client);
 });
+
 
 // Inicializa o cliente e mantém o processo rodando
 console.log("Inicializando cliente...");
