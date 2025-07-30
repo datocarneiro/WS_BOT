@@ -21,14 +21,24 @@ async function handleTreinamento(msg, client, user, users) {
   // Voltar ao menu anterior (MAIN ou outro)
   if (body === '0' || body === 'voltar') {
     if (user.menuStack.length > 1) {
-      console.log('menuStack É MAIOR QUE 1')
-    };
-    const previous = user.menuStack.at(-1) || 'MAIN'; // fallback caso vazio
-    user.stage = previous;
-    console.log('Voltar para:', previous, 'menuStack:', user.menuStack);
-    user.menuStack.pop(); // remove o menu atual
-    return client.sendMessage(contact, menus[previous].text);
+      console.log('menuStack É MAIOR QUE 1');
+      user.menuStack.pop(); // Remove o menu atual (TREINAMENTO)
+      const previous = user.menuStack.at(-1) || 'MAIN'; // Novo topo da pilha
+
+      user.stage = previous;
+      console.log('Voltar para:', previous, 'menuStack:', user.menuStack);
+
+      const previousMenuText = menus[previous].text;
+
+      return client.sendMessage(contact, previousMenuText + opcoesNavegacao);
+    } else {
+      // Se for o único item na pilha, volta para o MAIN
+      user.menuStack = ['MAIN'];
+      user.stage = 'MAIN';
+      return client.sendMessage(contact, menus.MAIN.text);
+    }
   }
+
   
   // Selecione uma opção válida de treinamento
   const resp = menus.TREINAMENTO.getRandomResponse(bodyRaw);
@@ -39,8 +49,7 @@ async function handleTreinamento(msg, client, user, users) {
 
   // Envia resposta + opções de navegação
   await client.sendMessage(contact, resp);
-  const opcoesNavegacao = `\n\n📲 *Navegação:*\n0 - Voltar\n00 - Encerrar sessão`;
-  await client.sendMessage(contact, opcoesNavegacao);
+  await client.sendMessage(contact);
 }
 
 module.exports = { handleTreinamento };
