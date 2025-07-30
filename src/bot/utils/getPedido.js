@@ -3,7 +3,7 @@ require('dotenv').config();
 const API_KEY = process.env.API_KEY;
 const COOKIE_AMPLO = process.env.COOKIE_AMPLO;
 
-async function fetchPedido(ordem) {
+async function fetchPedido(numeroOrigem) {
   try {
     const response = await fetch('https://amplo.eship.com.br/v3/?api=&funcao=webServiceGetOrdem', {
       method: 'POST',
@@ -12,7 +12,10 @@ async function fetchPedido(ordem) {
         'Content-Type': 'application/json',
         'Cookie': `amplo=${COOKIE_AMPLO}`
       },
-      body: JSON.stringify({ ordem })
+      body: JSON.stringify({ 
+        numeroOrigem,
+        armazem: 4
+      })
     });
 
     if (!response.ok) {

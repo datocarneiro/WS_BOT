@@ -1,8 +1,7 @@
 const client = require("./client");
 const qrcode = require("qrcode-terminal");
-const { handleMessage } = require("./handlers/handleMessage");
+const { handleMessage } = require("./handlers/handleMessage");  // CORRETO
 const { menus } = require("../menus");
-
 
 
 // Gera QR Code para autenticação
@@ -31,13 +30,11 @@ client.on("ready", () => {
 // });
 
 
-// Escuta as mensagens e processa
 client.on("message", async (msg) => {
     // Ignora mensagens vindas de grupos
     if (msg.from.endsWith('@g.us')) return;
-
-    // Processa apenas mensagens privadas
-    await handleMessage(msg, client);
+    // Processa apenas mensagens privada
+    await handleMessage(msg, client);  // CORRETO
 });
 
 
