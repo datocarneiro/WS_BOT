@@ -1,56 +1,58 @@
-// src/bot/handlers/operacional.js
-
 const { menus } = require('../../menus');
+const { pushMenu, popMenu, getCurrentMenuText } = require('../utils/navigation');
 const fetchPedido = require('../utils/getPedido');
+
+// Texto de navegação padrão
+const NAVIGATION_TEXT = `
+
+📲 *Navegação:*
+0 - Voltar
+00 - Encerrar sessão`;
 
 async function handleOperacional(msg, client, user, users) {
   const contact = msg.from;
   const bodyRaw = msg.body.trim();
   const body = bodyRaw.toLowerCase();
 
-  // Garante que o menu correto está no topo da pilha
-  if (user.menuStack.at(-1) !== 'OPERACIONAL') {
-    user.menuStack.push('OPERACIONAL');
-    console.log('Forçado push OPERACIONAL. menuStack:', user.menuStack);
+  // Ao entrar em Operacional, empilha e exibe menu
+  if (user.stage !== 'OPERACIONAL') {
+    pushMenu(user, 'OPERACIONAL');
+    await client.sendMessage(contact, getCurrentMenuText(user));
+    return;
   }
 
   // Encerrar sessão
   if (body === '00' || body === 'encerrar sessão') {
     user.stage = 'ENDED';
     user.menuStack = [];
-    return client.sendMessage(contact, 'Até a próxima!');
+    await client.sendMessage(contact, 'Até a próxima!');
+    return;
   }
 
-  // Voltar ao menu anterior
+  // Voltar para menu anterior
   if (body === '0' || body === 'voltar') {
-    if (user.menuStack.length > 1) user.menuStack.pop();
-    const previous = user.menuStack.at(-1);
-    user.stage = previous;
-    console.log('Voltar para:', previous, 'menuStack:', user.menuStack);
-    const text = menus[previous]?.text || menus.OPERACIONAL.text;
-    return client.sendMessage(contact, text);
+    popMenu(user);
+    await client.sendMessage(contact, getCurrentMenuText(user));
+    return;
   }
 
-  // ─── Fluxo de Operacional ───
+  // Fluxo operacional baseado no estágio atual
   switch (user.stage) {
-    // A) Usuário acabou de entrar em OPERACIONAL: processa a escolha
     case 'OPERACIONAL': {
       const nextStage = menus.OPERACIONAL.options[bodyRaw];
       if (!nextStage) {
         await client.sendMessage(contact, '❌ Opção inválida.');
-        return client.sendMessage(contact, menus.OPERACIONAL.text);
+        await client.sendMessage(contact, menus.OPERACIONAL.text);
+        return;
       }
-      // avança para o subfluxo
-      user.lastMenuStage = 'OPERACIONAL';
-      user.stage         = nextStage;
-      user.menuStack.push(nextStage);  // ← ADICIONE ISTO
-      return client.sendMessage(contact, menus[nextStage].text);
+      pushMenu(user, nextStage);
+      await client.sendMessage(contact, getCurrentMenuText(user));
+      return;
     }
 
-    // B) Entrada de número de pedido
     case 'OPERACIONAL_PEDIDO_INPUT': {
       const pedido = bodyRaw;
-      await client.sendMessage(contact, `🔎 Consultando pedido${pedido}, aguarde enquanto processamos...`);
+      await client.sendMessage(contact, `🔎 Consultando pedido ${pedido}, aguarde...`);
       try {
         const dados = await fetchPedido(pedido);
         if (!dados) {
@@ -59,9 +61,9 @@ async function handleOperacional(msg, client, user, users) {
           await client.sendMessage(contact, `⚠️ Erro: ${dados.erro}`);
         } else {
           const nomeTransporte = dados.transportes?.[0]?.nome || 'Não informado';
-          const nomeDest       = dados.destinatario?.nome       || 'Não informado';
-          const razaoSocial    = dados.destinatario?.razaoSocial || 'Não informado';
-          const statusDesc     = dados.status?.descricao        || 'Não informado';
+          const nomeDest = dados.destinatario?.nome || 'Não informado';
+          const razaoSocial = dados.destinatario?.razaoSocial || 'Não informado';
+          const statusDesc = dados.status?.descricao || 'Não informado';
 
           const mensagem =
             `📦 *Detalhes do Pedido ${pedido}*:\n\n` +
@@ -75,25 +77,32 @@ async function handleOperacional(msg, client, user, users) {
         console.error('Erro ao consultar API:', err);
         await client.sendMessage(contact, '❌ Erro ao consultar o pedido. Tente novamente mais tarde.');
       }
+      await client.sendMessage(contact, NAVIGATION_TEXT);
+      return;
     }
 
-    // C) Entrada de SKU para saldo
     case 'OPERACIONAL_SALDO_INPUT': {
       const sku = bodyRaw;
       await client.sendMessage(contact, `🔎 Consultando saldo do SKU ${sku}...`);
-      // TODO: fetchSaldo
+      // TODO: implementar fetchSaldo
       await client.sendMessage(contact, `💰 Saldo disponível para SKU ${sku}: 123 unidades.`);
-      ;
+      await client.sendMessage(contact, NAVIGATION_TEXT);
+      return;
     }
 
-    // D) Respostas diretas (sem input extra)
     default: {
+      // Respostas diretas ou fallback para menu Operacional
       const direct = menus[user.stage];
       if (direct && direct.next === 'OPERACIONAL') {
         await client.sendMessage(contact, direct.text);
-        user.stage = 'OPERACIONAL';
-        return client.sendMessage(contact, menus.OPERACIONAL.text);
+        pushMenu(user, 'OPERACIONAL');
+        await client.sendMessage(contact, menus.OPERACIONAL.text);
+        return;
       }
+      // Fallback geral
+      popMenu(user);
+      await client.sendMessage(contact, getCurrentMenuText(user));
+      return;
     }
   }
 }
