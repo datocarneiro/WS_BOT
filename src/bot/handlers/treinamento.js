@@ -1,7 +1,7 @@
-const { menus } = require('../../menus');
-const { pushMenu, popMenu, getCurrentMenuText } = require('../utils/navigation');
+const { menus } = require('../../menus/gerirMenus');
+const { pushMenu, popMenu, getCurrentMenuText } = require('../utils/navegacao');
 
-async function handleTreinamento(msg, client, user, users) {
+async function tratarMensagemTreinamento(msg, client, user, users) {
   const contact = msg.from;
   const bodyRaw = msg.body.trim();
   const body = bodyRaw.toLowerCase();
@@ -39,4 +39,4 @@ async function handleTreinamento(msg, client, user, users) {
   await client.sendMessage(contact, nav);
 }
 
-module.exports = { handleTreinamento };
+module.exports = { tratarMensagemTreinamento };

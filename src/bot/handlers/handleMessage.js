@@ -1,15 +1,16 @@
 // src/bot/handlers/handleMessage.js
 
-const { menus } = require('../../menus');
-const { randomGreeting } = require('../../utils/greetings');
-const { handleOperacional } = require('./operacional');
-const { handleFinanceiro } = require('./financeiro');
-const { handleEquipeTec } = require('./equipeTec');
-const { handleTreinamento } = require('./treinamento');
-const { popMenu, pushMenu, getCurrentMenuText } = require('../utils/navigation');
+const { menus } = require('../../menus/gerirMenus');
+const { mensagemInicial } = require('../../utils/mensagemInicial');
+const { tratarMensagemOperacional } = require('./operacional');
+const { tratarMensagemFinanceiro } = require('./financeiro');
+const { tratarMensagemEquipeTec } = require('./equipeTec');
+const { tratarMensagemTreinamento } = require('./treinamento');
+const { popMenu, pushMenu, getCurrentMenuText } = require('../utils/navegacao');
 
 const users = new Map();
 
+/* Anotação para eu não esquecer - Essa função é responsavel por gerir a menssagem*/
 async function handleMessage(msg, client) {
   const contact = msg.from;
   const bodyRaw = msg.body.trim();
@@ -17,9 +18,9 @@ async function handleMessage(msg, client) {
 
   let user = users.get(contact);
   if (!user || user.stage === 'ENDED') {
-    users.set(contact, { stage: 'MAIN', menuStack: ['MAIN'] });
-    await client.sendMessage(contact, randomGreeting());
-    await client.sendMessage(contact, menus.MAIN.text);
+    users.set(contact, { stage: 'MENUPRINCIPAL', menuStack: ['MENUPRINCIPAL'] });
+    await client.sendMessage(contact, mensagemInicial());
+    await client.sendMessage(contact, menus.MENUPRINCIPAL.text);
     return;
   }
   user = users.get(contact);
@@ -40,11 +41,11 @@ async function handleMessage(msg, client) {
   }
 
   // Menu Principal
-  if (user.stage === 'MAIN') {
-    const choice = menus.MAIN.options[bodyRaw];
+  if (user.stage === 'MENUPRINCIPAL') {
+    const choice = menus.MENUPRINCIPAL.options[bodyRaw];
     if (!choice) {
       await client.sendMessage(contact, '❌ Opção inválida.');
-      await client.sendMessage(contact, menus.MAIN.text);
+      await client.sendMessage(contact, menus.MENUPRINCIPAL.text);
       return;
     }
     pushMenu(user, choice);
@@ -54,22 +55,22 @@ async function handleMessage(msg, client) {
 
   // Delegar aos handlers específicos
   if (user.stage.startsWith('OPERACIONAL')) {
-    return handleOperacional(msg, client, user, users);
+    return tratarMensagemOperacional(msg, client, user, users);
   }
   if (user.stage.startsWith('FINANCEIRO')) {
-    return handleFinanceiro(msg, client, user, users);
+    return tratarMensagemFinanceiro(msg, client, user, users);
   }
   if (user.stage.startsWith('EQUIPE_TEC') || user.stage === 'CHAMADO') {
-    return handleEquipeTec(msg, client, user, users);
+    return tratarMensagemEquipeTec(msg, client, user, users);
   }
   if (user.stage.startsWith('TREINAMENTO')) {
-    return handleTreinamento(msg, client, user, users);
+    return tratarMensagemTreinamento(msg, client, user, users);
   }
 
   // Fallback: garante retorno ao MAIN
-  user.stage = 'MAIN';
-  user.menuStack = ['MAIN'];
-  await client.sendMessage(contact, menus.MAIN.text);
+  user.stage = 'MENUPRINCIPAL';
+  user.menuStack = ['MENUPRINCIPAL'];
+  await client.sendMessage(contact, menus.MENUPRINCIPAL.text);
 }
 
 module.exports = { handleMessage };

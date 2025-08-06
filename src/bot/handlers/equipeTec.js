@@ -1,4 +1,4 @@
-const { menus } = require("../../menus");
+const { menus } = require("../../menus/gerirMenus");
 
 // ID do grupo de suporte técnico
 const grupoID = '120363418165776990@g.us';
@@ -11,7 +11,7 @@ const etapasChamado = [
     { key: 'descricao', pergunta: "Descreva a situação detalhadamente:" }
 ];
 
-async function handleEquipeTec(msg, client, user, users) {
+async function tratarMensagemEquipeTec(msg, client, user, users) {
     const contact = msg.from;
     const bodyRaw = msg.body.trim();
     const body = bodyRaw.toLowerCase();
@@ -89,4 +89,4 @@ async function handleEquipeTec(msg, client, user, users) {
     }
 }
 
-module.exports = { handleEquipeTec };
+module.exports = { tratarMensagemEquipeTec };

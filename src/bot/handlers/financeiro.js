@@ -1,6 +1,6 @@
-const { menus } = require("../../menus");
+const { menus } = require("../../menus/gerirMenus");
 
-async function handleFinanceiro(msg, client, user, users) {
+async function tratarMensagemFinanceiro(msg, client, user, users) {
     const contact = msg.from;
     const bodyRaw = msg.body.trim();
 
@@ -25,4 +25,4 @@ async function handleFinanceiro(msg, client, user, users) {
     await client.sendMessage(contact, menus["FINANCEIRO"].text);
 }
 
-module.exports = { handleFinanceiro };
+module.exports = { tratarMensagemFinanceiro };

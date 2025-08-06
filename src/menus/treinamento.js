@@ -1,5 +1,3 @@
-// src/menus/treinamento.js
-
 // Exporta o objeto TREINAMENTO para ser usado em outro arquivo com require()
 const TREINAMENTO = {
   // ---- VARIAÇÕES DO MENU ----
@@ -151,7 +149,6 @@ const TREINAMENTO = {
     },
 
 
-  // ---- VARIÁVEIS INTERNAS ----
   // estados internos para sortear sem repetição
   _textIndex: 0,
   _shuffled: null,

@@ -1,5 +1,5 @@
-const { menus } = require('../../menus');
-const { pushMenu, popMenu, getCurrentMenuText } = require('../utils/navigation');
+const { menus } = require('../../menus/gerirMenus');
+const { pushMenu, popMenu, getCurrentMenuText } = require('../utils/navegacao');
 const fetchPedido = require('../utils/getPedido');
 
 // Texto de navegação padrão
@@ -9,7 +9,7 @@ const NAVIGATION_TEXT = `
 0 - Voltar
 00 - Encerrar sessão`;
 
-async function handleOperacional(msg, client, user, users) {
+async function tratarMensagemOperacional(msg, client, user, users) {
   const contact = msg.from;
   const bodyRaw = msg.body.trim();
   const body = bodyRaw.toLowerCase();
@@ -107,4 +107,4 @@ async function handleOperacional(msg, client, user, users) {
   }
 }
 
-module.exports = { handleOperacional };
+module.exports = { tratarMensagemOperacional };
