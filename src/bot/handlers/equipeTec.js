@@ -40,7 +40,6 @@ async function tratarMensagemEquipeTec(msg, client, user, users) {
     }
 
 
-
     // ➤ Início do fluxo de chamado
     if (user.stage === "EQUIPE_TEC" && bodyRaw === "2") {
         user.stage = "CHAMADO";

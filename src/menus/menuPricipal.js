@@ -4,7 +4,9 @@ module.exports = {
 1 - Operacional
 2 - Financeiro
 3 - Equipe Técnica
-4 - Treinamento`,
+4 - Treinamento
+
+# - 🛑 Encerrar`,
     options: {
       "1": "OPERACIONAL",
       "2": "FINANCEIRO",

@@ -4,7 +4,7 @@ module.exports = {
 1 - Assunto 1 (texto técnico)
 2 - Falar com um atendente
 0 - ⬅️ Voltar
-00 - 🛑 Encerrar`,
+# - 🛑 Encerrar`,
     options: {
       "1": "👨‍🔧 Encaminhando para técnico - assunto 1...",
       "2": "Informe os dados abaixo",

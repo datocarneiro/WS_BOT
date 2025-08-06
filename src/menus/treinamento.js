@@ -20,8 +20,9 @@ const TREINAMENTO = {
 14 - 📦 Saldos e Estoques
 15 - 📥 Recebimentos
 16 - 🚚 Transporte
+
 0 - ⬅️ Voltar
-00 - 🛑 Encerrar`,
+# - 🛑 Encerrar`,
 
     `Selecione a dúvida do treinamento:
 1 - 🎬 Apresentação do eShip
@@ -40,8 +41,9 @@ const TREINAMENTO = {
 14 - 📦 Conferir Saldos
 15 - 📥 Recebimentos
 16 - 🚚 Transporte
+
 0 - ⬅️ Voltar
-00 - 🛑 Encerrar`,
+# - 🛑 Encerrar`,
 
     `Menu de Treinamento:
 1 - 🎬 Conheça o eShip
@@ -60,8 +62,9 @@ const TREINAMENTO = {
 14 - 📦 Saldos do Sistema
 15 - 📥 Controle de Recebimentos
 16 - 🚚 Transporte
+
 0 - ⬅️ Voltar
-00 - 🛑 Encerrar`
+# - 🛑 Encerrar`
   ],
  // ---- VARIAÇÕES DAS RESPOSTAS ----
     // Cada número (1 a 16) tem 3 frases diferentes com o mesmo link do vídeo

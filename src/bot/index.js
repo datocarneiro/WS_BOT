@@ -28,9 +28,7 @@ client.on("message", async (msg) => {
 // //Recupera ID dos
 // client.on('ready', async () => {
 //     const chats = await client.getChats();
-
 //     const grupos = chats.filter(chat => chat.isGroup);
-
 //     grupos.forEach(group => {
 //         console.log(`Nome: ${group.name} | ID: ${group.id._serialized}`);
 //     });
