@@ -3,8 +3,8 @@ module.exports = {
     text: `Equipe Técnica:
 1 - Assunto 1 (texto técnico)
 2 - Falar com um atendente
-00 - Voltar
-0 - Encerrar sessão`,
+0 - ⬅️ Voltar
+00 - 🛑 Encerrar`,
     options: {
       "1": "👨‍🔧 Encaminhando para técnico - assunto 1...",
       "2": "Informe os dados abaixo",

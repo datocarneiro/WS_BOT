@@ -1,93 +1,76 @@
-const { menus } = require('../../menus');
-const { randomGreeting } = require('../../utils/greetings');
+// src/bot/handlers/handleMessage.js
 
-// Handlers individuais por departamento
-const { handleOperacional } = require('./operacional');
-const { handleEquipeTec } = require('./equipeTec');
-const { handleFinanceiro } = require('./financeiro');
-const { handleTreinamento } = require('./treinamento');
+const { menus } = require('../../menus/gerirMenus');
+const { mensagemInicial } = require('../../utils/mensagemInicial');
+const { tratarMensagemOperacional } = require('./operacional');
+const { tratarMensagemFinanceiro } = require('./financeiro');
+const { tratarMensagemEquipeTec } = require('./equipeTec');
+const { tratarMensagemTreinamento } = require('./treinamento');
+const { popMenu, pushMenu, getCurrentMenuText } = require('../utils/navegacao');
 
 const users = new Map();
 
+/* Anotação para eu não esquecer - Essa função é responsavel por gerir a menssagem*/
 async function handleMessage(msg, client) {
-    const contact = msg.from;
-    const bodyRaw = msg.body.trim();
-    const body = bodyRaw.toLowerCase();
+  const contact = msg.from;
+  const bodyRaw = msg.body.trim();
+  const body = bodyRaw.toLowerCase();
 
-    // ➤ Inicialização / reset
-    let user = users.get(contact);
-    if (!user || user.stage === "ENDED") {
-        users.set(contact, { stage: "MAIN" });
-        await client.sendMessage(contact, randomGreeting());
-        await client.sendMessage(contact, menus["MAIN"].text);
-        return;
+  let user = users.get(contact);
+  if (!user || user.stage === 'ENDED') {
+    users.set(contact, { stage: 'MENUPRINCIPAL', menuStack: ['MENUPRINCIPAL'] });
+    await client.sendMessage(contact, mensagemInicial());
+    await client.sendMessage(contact, menus.MENUPRINCIPAL.text);
+    return;
+  }
+  user = users.get(contact);
+
+  // Encerrar sessão
+  if (body === '00' || body === 'encerrar sessão') {
+    user.stage = 'ENDED';
+    user.menuStack = [];
+    await client.sendMessage(contact, 'Até a próxima!');
+    return;
+  }
+
+  // Voltar para menu anterior
+  if (body === '0' || body === 'voltar') {
+    popMenu(user);
+    await client.sendMessage(contact, getCurrentMenuText(user));
+    return;
+  }
+
+  // Menu Principal
+  if (user.stage === 'MENUPRINCIPAL') {
+    const choice = menus.MENUPRINCIPAL.options[bodyRaw];
+    if (!choice) {
+      await client.sendMessage(contact, '❌ Opção inválida.');
+      await client.sendMessage(contact, menus.MENUPRINCIPAL.text);
+      return;
     }
-    user = users.get(contact);
+    pushMenu(user, choice);
+    await client.sendMessage(contact, getCurrentMenuText(user));
+    return;
+  }
 
-    // ➤ Encerrar sessão
-    if (body === "0" || body === "encerrar sessão") {
-        await client.sendMessage(contact, "Até a próxima!");
-        user.stage = "ENDED";
-        return;
-    }
+  // Delegar aos handlers específicos
+  if (user.stage.startsWith('OPERACIONAL')) {
+    return tratarMensagemOperacional(msg, client, user, users);
+  }
+  if (user.stage.startsWith('FINANCEIRO')) {
+    return tratarMensagemFinanceiro(msg, client, user, users);
+  }
+  if (user.stage.startsWith('EQUIPE_TEC') || user.stage === 'CHAMADO') {
+    return tratarMensagemEquipeTec(msg, client, user, users);
+  }
+  if (user.stage.startsWith('TREINAMENTO')) {
+    return tratarMensagemTreinamento(msg, client, user, users);
+  }
 
-    // ➤ Voltar
-    if ((body === "00" || body === "voltar") && user.lastMenuStage) {
-        user.stage = user.lastMenuStage;
-        await client.sendMessage(contact, menus[user.stage].text);
-        return;
-    }
-
-    // ➤ Roteamento geral por departamento / fluxo de CHAMADO
-    // Note que CHAMADO engloba todo o questionário da equipe técnica
-    if (
-        user.stage.startsWith("OPERACIONAL") ||
-        user.stage === "CHAMADO" ||
-        (user.stage === "EQUIPE_TEC" && bodyRaw === "2")
-    ) {
-        await handleEquipeTec(msg, client, user, users);         // chama as etapas da equipe técnica
-        return;
-    }
-
-    if (user.stage.startsWith("FINANCEIRO")) {
-        await handleFinanceiro(msg, client, user, users);
-        return;
-    }
-
-    if (user.stage.startsWith("TREINAMENTO")) {
-        await handleTreinamento(msg, client, user, users);
-        return;
-    }
-
-
-
-
-
-
-    // ➤ Navegação de menus padrão
-    const stage = menus[user.stage];
-    if (!stage) {
-        user.stage = "MAIN";
-        await client.sendMessage(contact, menus["MAIN"].text);
-        return;
-    }
-
-    const option = stage.options?.[bodyRaw];
-    if (!option) {
-        await client.sendMessage(contact, "❌ Opção inválida. Tente novamente.");
-        await client.sendMessage(contact, stage.text);
-        return;
-    }
-    if (typeof option === "string" && menus[option]) {
-        user.lastMenuStage = user.stage;
-        user.stage = option;
-        await client.sendMessage(contact, menus[option].text);
-    } else {
-        await client.sendMessage(contact, option);
-        user.lastMenuStage = user.stage;
-        user.stage = "AWAITING_DECISION";
-        await client.sendMessage(contact, "Escolha uma opção:\n00 - Voltar\n0 - Encerrar sessão");
-    }
+  // Fallback: garante retorno ao MAIN
+  user.stage = 'MENUPRINCIPAL';
+  user.menuStack = ['MENUPRINCIPAL'];
+  await client.sendMessage(contact, menus.MENUPRINCIPAL.text);
 }
 
 module.exports = { handleMessage };

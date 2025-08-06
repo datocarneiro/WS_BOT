@@ -7,7 +7,9 @@ module.exports = {
 4 - ⏰ Horario de Recebimento
 5 - 🚚 Horario de expedição
 6 - 🔎 Consulta de Saldo
-0 - Voltar`,
+7 - 🤝 Falar com um atendente
+0 - ⬅️ Voltar
+00 - 🛑 Encerrar`,
     options: {
       "1": "OPERACIONAL_PEDIDO_INPUT",
       "2": "📦 Verificando recebimento...",
@@ -17,14 +19,14 @@ module.exports = {
       "6": "SKU_IMPUT"
     }
   },
-  SKU_IMPUT: {
+  SKU_INPUT: {
     text: `🔍 Informe o número do SKU:`,
     input: true,
     next: "Menu Principal"
   },
 
   OPERACIONAL_PEDIDO_INPUT: {
-    text: `🔍 Informe o número do pedido ERP:`,
+    text: `🔍 Informe o número do pedido/numero de origem:`,
     input: true,
     next: "Menu Principal"
   }
