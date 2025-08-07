@@ -26,11 +26,11 @@ async function consultarRecebimento(codigoRB, client, contact, NAVIGATION_TEXT) 
 			// Pega o status do primeiro item como status do volume
 			const rcstatus = itens[0]?.statusVolume || 'Desconhecido';
 
-			msg += `📦 *Volume cód: ${rc}* | Status Volume: ${rcstatus}\n`;
+			msg += `\t📦 *Volume cód: ${rc}* | Status Volume: ${rcstatus}\n`;
 
 			itens.forEach(i => {
-				msg += `\t– ${i.produtoCodigo} | ${i.produtoDesc}\n` +
-					`\t  Quantidade Apontada: ${i.quantidadeApontada} | Lote: ${i.lote}\n`;
+				msg += `\t\t– ${i.produtoCodigo} | ${i.produtoDesc}\n` +
+					`\t\tQuantidade Apontada: ${i.quantidadeApontada} | Lote: ${i.lote}\n`;
 			});
 
 			msg += '\n';
