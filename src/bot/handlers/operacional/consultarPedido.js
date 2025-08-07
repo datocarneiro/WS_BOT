@@ -22,10 +22,10 @@ async function consultarPedido(pedido, client, contact, NAVIGATION_TEXT) {
 
 			const mensagem =
 				`📦 *Detalhes do Pedido ${pedido}*:\n\n` +
-				`🚚 *Transporte:* ${nomeTransporte}\n` +
-				`👤 *Destinatário:* ${nomeDest}\n` +
-				`🏢 *Razão Social:* ${razaoSocial}\n` +
-				`📋 *Status:* ${statusDesc}`;
+				`\t*Transporte:* ${nomeTransporte}\n` +
+				`\t*Destinatário:* ${nomeDest}\n` +
+				`\t*Razão Social:* ${razaoSocial}\n` +
+				`\t*Status:* ${statusDesc}`;
 
 			await client.sendMessage(contact, mensagem);
 		}

@@ -10,8 +10,7 @@ async function getPedido(numeroOrigem) {
       method: 'POST',
       headers: {
         'Api': API_KEY,
-        'Content-Type': 'application/json',
-        'Cookie': `amplo=${COOKIE_AMPLO}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({ 
         numeroOrigem,
