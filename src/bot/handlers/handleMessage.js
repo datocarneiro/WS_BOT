@@ -1,81 +1,79 @@
-const { menus } = require('../../menus');
-const { randomGreeting } = require('../../utils/greetings');
-const { handlePedidoERP } = require("./actions/operacional");
+// src/bot/handlers/handleMessage.js
+
+const { menus } = require('../../menus/gerirMenus');
+const { mensagemInicial } = require('../../utils/mensagemInicial');
+const { tratarMensagemOperacional } = require('./operacional/operacional');
+const { tratarMensagemFinanceiro } = require('./financeiro');
+const { tratarMensagemEquipeTec } = require('./equipeTec');
+const { tratarMensagemTreinamento } = require('./treinamento');
+const { popMenu, pushMenu, getCurrentMenuText } = require('../utils/navegacao');
 
 const users = new Map();
 
+/* Anotação para eu não esquecer - Essa função é responsavel por gerir a menssagem*/
 async function handleMessage(msg, client) {
-    const contact = msg.from;
-    const bodyRaw = msg.body.trim();
-    const body = bodyRaw.toLowerCase();
+	const contact = msg.from;
+	const bodyRaw = msg.body.trim();
+	const body = bodyRaw.toLowerCase();
 
-    let user = users.get(contact);
+	let user = users.get(contact);
+	if (!user || user.stage === 'ENDED') {
+		users.set(contact, { stage: 'MENUPRINCIPAL', menuStack: ['MENUPRINCIPAL'] });
+		await client.sendMessage(contact, mensagemInicial());
+		await client.sendMessage(contact, menus.MENUPRINCIPAL.text);
+		return;
+	}
 
-    // ➤ Primeira interação ou reinício após encerramento
-    if (!user || user.stage === "ENDED") {
-        users.set(contact, { stage: "MAIN" });
-        await client.sendMessage(contact, randomGreeting());
-        await client.sendMessage(contact, menus["MAIN"].text);
-        return;
-    }
+	user = users.get(contact);
+	console.log('STAGE::::', user.stage, user.menuStack);
+	
+	// Encerrar sessão
+	if (body === '#' || body === 'encerrar sessão') {
+		user.stage = 'ENDED';
+		user.menuStack = [];
+		await client.sendMessage(contact, 'Até a próxima!');
+		return;
+	}
 
-    user = users.get(contact);
+	// Voltar para menu anterior
+	if (body === '0' || body === 'voltar') {
+		popMenu(user);
+		await client.sendMessage(contact, getCurrentMenuText(user));
+		return;
+	}
 
-    // ➤ Encerrar sessão (soft)
-    if (body === "0" || body === "encerrar sessão") {
-        await client.sendMessage(contact, "Até a próxima!");
-        user.stage = "ENDED";
-        return;
-    }
+	// Menu Principal
+	if (user.stage === 'MENUPRINCIPAL') {
+		const choice = menus.MENUPRINCIPAL.options[bodyRaw];
+		if (!choice) {
+			await client.sendMessage(contact, '❌ Opção inválida.');
+			await client.sendMessage(contact, menus.MENUPRINCIPAL.text);
+			return;
+		}
+		pushMenu(user, choice);
+		await client.sendMessage(contact, getCurrentMenuText(user));
+		return;
+	}
 
-    // ➤ Voltar (menu anterior)
-    if ((body === "00" || body === "voltar") && user.lastMenuStage) {
-        user.stage = user.lastMenuStage;
-        await client.sendMessage(contact, menus[user.stage].text);
-        return;
-    }
+	// Delegar aos handlers específicos
+	if (user.stage.startsWith('OPERACIONAL')) {
+		return tratarMensagemOperacional(msg, client, user, users);
+	}
+	if (user.stage.startsWith('FINANCEIRO')) {
+		return tratarMensagemFinanceiro(msg, client, user, users);
+	}
+	if (user.stage.startsWith('EQUIPE_TEC') || user.stage === 'CHAMADO') {
+		return tratarMensagemEquipeTec(msg, client, user, users);
+	}  
+	if (user.stage.startsWith('TREINAMENTO')) {
+		return tratarMensagemTreinamento(msg, client, user, users);
+	}
 
-    const stage = menus[user.stage];
+	// Fallback: garante retorno ao MAIN
+	user.stage = 'MENUPRINCIPAL';
+	user.menuStack = ['MENUPRINCIPAL'];
+	await client.sendMessage(contact, menus.MENUPRINCIPAL.text);
 
-    if (!stage) {
-        user.stage = "MAIN";
-        await client.sendMessage(contact, menus["MAIN"].text);
-        return;
-    }
-
-    let option = null;
-
-    if (!stage.input) {
-        option = stage.options[bodyRaw];
-
-        if (!option) {
-            await client.sendMessage(contact, "❌ Opção inválida. Tente novamente.");
-            await client.sendMessage(contact, stage.text);
-            return;
-        }
-    }
-
-    // ➤ Entrada de dados (ex: pedido)
-    if (stage.input) {
-        if (user.stage === "OPERACIONAL_PEDIDO_INPUT") {
-            await handlePedidoERP(client, contact, bodyRaw);
-            user.lastMenuStage = user.stage;
-            user.stage = "AWAITING_DECISION";
-            await client.sendMessage(contact, "Escolha uma opção:\n00 - Voltar\n0 - Encerrar sessão");
-            return;
-        }
-    }
-
-    if (typeof option === "string" && menus[option]) {
-        user.lastMenuStage = user.stage;
-        user.stage = option;
-        await client.sendMessage(contact, menus[option].text);
-    } else if (option) {
-        await client.sendMessage(contact, option);
-        user.lastMenuStage = user.stage;
-        user.stage = "AWAITING_DECISION";
-        await client.sendMessage(contact, "Escolha uma opção:\n00 - Voltar\n0 - Encerrar sessão");
-    }
 }
 
 module.exports = { handleMessage };

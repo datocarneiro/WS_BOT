@@ -1,14 +1,10 @@
 const client = require("./client");
 const qrcode = require("qrcode-terminal");
 const { handleMessage } = require("./handlers/handleMessage");
-const { menus } = require("../menus");
-
-
 
 // Gera QR Code para autenticação
 client.on("qr", (qr) => {
-  console.log("Evento QR recebido");
-  console.log("QR bruto:", qr); // sempre deve exibir algo como 'otpauth://...'
+  console.log("QR bruto:", qr);
   qrcode.generate(qr, { small: true });
   console.log("📱 QR Code gerado, escaneie com seu WhatsApp!");
 });
@@ -19,13 +15,27 @@ client.on("ready", () => {
   console.log("✅ Bot está pronto!");
 });
 
-// Escuta as mensagens e processa
-client.on("message", async (msg) => {
-  await handleMessage(msg, client, menus);
 
+
+
+client.on("message", async (msg) => {
+    // Ignora mensagens vindas de grupos
+    if (msg.from.endsWith('@g.us')) return;
+    // Processa apenas mensagens privada
+    await handleMessage(msg, client);  // CORRETO
 });
 
+// //Recupera ID dos
+// client.on('ready', async () => {
+//     const chats = await client.getChats();
+//     const grupos = chats.filter(chat => chat.isGroup);
+//     grupos.forEach(group => {
+//         console.log(`Nome: ${group.name} | ID: ${group.id._serialized}`);
+//     });
+// });
+
+
 // Inicializa o cliente e mantém o processo rodando
-console.log("Inicializando cliente...");
+console.log("Inicializando o cliente/processo de autenticaçã no Whats...");
 client.initialize();
-console.log("Cliente inicializado (chamada feita)");
+console.log("Cliente inicializado.")

@@ -7,6 +7,9 @@ venv
 /.venv
 session
 /session
+.wwebjs_cache
+/.wwebjs_cache
+.wwebjs_cache/
 
 # Logs
 logs

@@ -1,15 +1,15 @@
-const main = require("./main");
+const menuPricipal = require("./menuPricipal");
 const operacional = require("./operacional");
 const financeiro = require("./financeiro");
-const equipeTec = require("./equipeTec");
 const treinamento = require("./treinamento");
+const equipeTec = require("./equipeTec");
 
 const menus = {
-  ...main,
-  ...operacional,
-  ...financeiro,
-  ...equipeTec,
-  ...treinamento
+	...menuPricipal,
+	...treinamento,
+	...financeiro,
+	...operacional,
+	...equipeTec,
 };
 
 module.exports = { menus };

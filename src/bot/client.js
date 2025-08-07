@@ -1,4 +1,4 @@
-console.log("📡 client.js foi carregado");
+
 const { Client, LocalAuth } = require("whatsapp-web.js");
 
 const client = new Client({
@@ -19,3 +19,4 @@ const client = new Client({
 });
 
 module.exports = client;
+console.log("📡 client.js foi carregado");
