@@ -4,10 +4,10 @@ module.exports = {
 	1 – 📦  Consultar Pedido
 	2 – 🔎  Consulta de Saldo
 	3 – 📥  Consultar Recebimento
-	4 – ⏰  Horário de Recebimento
-	5 – 🚚  Horário de Expedição
+	4 – ⏰  Horário de Recebimento (Doca)
+	5 – 🚚  Horário de Expedição (Doca)
 	6 – 🕗  Horário de Funcionamento
-	7 – 🤝  Falar com um atendent
+	7 – 🤝  Falar com um atendente
 	0 - ⬅️  Voltar
 	# - 🛑  Encerrar`,
 

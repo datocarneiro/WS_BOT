@@ -2,6 +2,7 @@ const { menus } = require('../../../menus/gerirMenus');
 const { pushMenu, popMenu, getCurrentMenuText } = require('../../utils/navegacao');
 const { consultarPedido } = require('./consultarPedido');
 const { consultarProduto } = require('./consultarProduto');
+const { consultarRecebimento } = require('./consultarRecebimento');
 
 async function tratarMensagemOperacional(msg, client, user, users) {
 	const contact = msg.from;
@@ -73,6 +74,20 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 			popMenu(user);
 			return;
 		}
+
+
+		case 'OPERACIONAL_RECEBIMENTO_INPUT': {
+			console.log('>> caso OPERACIONAL_RECEBIMENTO_INPUT. Chamando consultarProduto');
+			const codigoRB = bodyRaw;
+			const codigoRBTratado = codigoRB.trim();
+			const NAVIGATION_TEXT = menus.OPERACIONAL.text;
+			await consultarRecebimento(codigoRBTratado, client, contact, NAVIGATION_TEXT);
+			popMenu(user);
+			return;
+		}
+
+
+
 
 		default: {
 			console.log('>> caso default para stage:', user.stage);
