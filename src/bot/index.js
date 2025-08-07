@@ -21,7 +21,8 @@ client.on("ready", () => {
 client.on("message", async (msg) => {
     // Ignora mensagens vindas de grupos
     if (msg.from.endsWith('@g.us')) return;
-    // Processa apenas mensagens privada
+
+    // Processa apenas mensagens privada@
     await handleMessage(msg, client);  // CORRETO
 });
 

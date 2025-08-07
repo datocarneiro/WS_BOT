@@ -11,7 +11,7 @@ async function consultarProduto(codigoItem, client, contact, NAVIGATION_TEXT) {
       await client.sendMessage(contact, `⚠️ ${dados.erro}`);
     } else {
       let mensagem =
-        `📦 *Detalhes do Produto ${codigoItem}*\n\n` +
+        `📦 *Detalhes do Produto ${codigoItem}*\n` +
         `• Código SKU: ${dados.codigo}\n` +
         `• Código de Barras: ${dados.codigobarras}\n` +
         `• Descrição: ${dados.descricao}\n\n`;
@@ -22,7 +22,7 @@ async function consultarProduto(codigoItem, client, contact, NAVIGATION_TEXT) {
         mensagem += '❌ Não há lotes com estoque disponível.';
       } else {
         for (const [dep, lotes] of depositos) {
-          mensagem += `\t*${dep}*\n`;
+          mensagem += `\tDepósito: *${dep}*\n`;
           lotes.forEach(({ lote, numero, saldodisponivel }) => {
 			mensagem += `\t – Disponível: ${saldodisponivel} | Lote: ${numero}\n`;
           });
