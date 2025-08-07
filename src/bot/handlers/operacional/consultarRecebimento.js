@@ -29,8 +29,8 @@ async function consultarRecebimento(codigoRB, client, contact, NAVIGATION_TEXT) 
 			msg += `\t📦 *Volume cód: ${rc}* | Status Volume: ${rcstatus}\n`;
 
 			itens.forEach(i => {
-				msg += `\t\t– ${i.produtoCodigo} | ${i.produtoDesc}\n` +
-					`\t\tQuantidade Apontada: ${i.quantidadeApontada} | Lote: ${i.lote}\n`;
+				msg += `\t\t• ${i.produtoCodigo} | ${i.produtoDesc}\n` +
+					`\t\tQuantidade Apontada: *${i.quantidadeApontada}* | Lote: ${i.lote}\n`;
 			});
 
 			msg += '\n';
