@@ -57,7 +57,6 @@ module.exports = {
 	},
 
 	OPERACIONAL_SOLICITAR_ATENDIMENTO: {
-		text: `🤝 Você será conectado a um atendente em instantes. Aguarde…`,
 		next: "OPERACIONAL"
 	}
 };

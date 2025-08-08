@@ -21,7 +21,7 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 
 
 	// Encerrar sessão
-	if (body === '00' || body === 'encerrar sessão') {
+	if (body === '#' || body === 'encerrar sessão') {
 		console.log('>> comando de encerrar sessão');
 		user.stage = 'ENDED';
 		user.menuStack = [];
@@ -56,23 +56,28 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 	console.log('>> entrando no switch de stage:', user.stage);
 
 	switch (user.stage) {
-		case 'OPERACIONAL': {
+			case 'OPERACIONAL': {
 			const nextStage = menus.OPERACIONAL.options[bodyRaw];
-			console.log('NEXTSTAGE encontrado em menus.OPERACIONAL.options:', nextStage);
-
 			if (!nextStage) {
-				console.log('>> opção inválida para OPERACIONAL:', bodyRaw);
 				await client.sendMessage(contact, '❌ Opção inválida.');
 				await client.sendMessage(contact, menus.OPERACIONAL.text);
 				return;
 			}
 
-			console.log(`>> pushMenu para stage "${nextStage}"`);
+			// Se for uma das opções 4, 5 ou 6, manda a resposta e já o menu
+			if (['4', '5', '6'].includes(bodyRaw)) {
+				const resposta = menus[nextStage].text;
+				await client.sendMessage(contact, resposta);
+				await client.sendMessage(contact, menus.OPERACIONAL.text);
+				return;
+			}
+
+			// Demais opções seguem fluxo normal
 			pushMenu(user, nextStage);
-			console.log('user.stage após pushMenu:', user.stage);
 			await client.sendMessage(contact, getCurrentMenuText(user));
 			return;
 		}
+
 
 		case 'OPERACIONAL_PEDIDO_INPUT': {
 			console.log('>> caso OPERACIONAL_PEDIDO_INPUT. Chamando consultarPedido');

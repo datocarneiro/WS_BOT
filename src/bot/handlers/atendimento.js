@@ -183,7 +183,7 @@ async function iniciarFluxoAtendimento(client, contact, user, bodyRaw, opts = {}
       // envia para o grupo
       await client.sendMessage(localOpts.grupoID, mensagemGrupo);
       // confirma para o cliente (mensagem direta)
-      await client.sendMessage(contact, mensagemGrupo`);
+      await client.sendMessage(contact, mensagemGrupo);
 
       // encerra sessão se solicitado
       if (localOpts.endSessionAfterCreate) {

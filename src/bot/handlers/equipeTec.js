@@ -16,7 +16,7 @@ async function tratarMensagemEquipeTec(msg, client, user, users) {
     }
 
     // Encerrar sessão
-    if (body === '00' || body === 'encerrar sessão') {
+    if (body === '#' || body === 'encerrar sessão') {
         user.stage = 'ENDED';
         user.menuStack = [];
         return client.sendMessage(contact, 'Até a próxima!');

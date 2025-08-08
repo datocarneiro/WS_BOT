@@ -1,7 +1,6 @@
 module.exports = {
 	EQUIPE_TEC: {
 	text: `🛠️ *Equipe Técnica:*
-	1 – 🧾  Assunto 1 (texto técnico)
 	* – 🤝  Solicitar Atendimento
 	0 – ⬅️  Voltar
 	# – 🛑  Encerrar`,

@@ -1,5 +1,5 @@
 {
-  "lastId": 5,
+  "lastId": 11,
   "tickets": {
     "00000001": {
       "id": "00000001",
@@ -69,6 +69,90 @@
       },
       "status": "open",
       "createdAt": "2025-08-08T16:06:25.001Z",
+      "history": []
+    },
+    "00000006": {
+      "id": "00000006",
+      "tag": "#ID:00000006",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "AAAA",
+        "usuario": "AAA AAAA",
+        "titulo": "Aaaaaa",
+        "descricao": "aaaa aaaa aaa"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T18:24:26.885Z",
+      "history": []
+    },
+    "00000007": {
+      "id": "00000007",
+      "tag": "#ID:00000007",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "KJLJKL",
+        "usuario": "JLJKLKJGL",
+        "titulo": "Jkljkljkl",
+        "descricao": "jkljkljkljk"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T18:34:09.072Z",
+      "history": []
+    },
+    "00000008": {
+      "id": "00000008",
+      "tag": "#ID:00000008",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "LJKLJKL",
+        "usuario": "JGKLJGKLJK",
+        "titulo": "Jkljkljk",
+        "descricao": "jkljkl"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T18:34:25.974Z",
+      "history": []
+    },
+    "00000009": {
+      "id": "00000009",
+      "tag": "#ID:00000009",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "LJGKLGKJ",
+        "usuario": "LJKGLGJKL",
+        "titulo": "Jklgjk",
+        "descricao": "lkljgkljklgjkl"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T18:34:51.371Z",
+      "history": []
+    },
+    "00000010": {
+      "id": "00000010",
+      "tag": "#ID:00000010",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "GFDGFG",
+        "usuario": "FDGFSDG",
+        "titulo": "Gdfgfdg",
+        "descricao": "gfgfg"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T18:48:51.560Z",
+      "history": []
+    },
+    "00000011": {
+      "id": "00000011",
+      "tag": "#ID:00000011",
+      "contact": "554196849091",
+      "dados": {
+        "empresa": "CONTABILIZEI",
+        "usuario": "MARCOS",
+        "titulo": "Qualquer Coisa",
+        "descricao": "preciso do bolet f´fbFUÚD"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T18:55:28.394Z",
       "history": []
     }
   }
