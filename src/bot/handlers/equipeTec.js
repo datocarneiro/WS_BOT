@@ -1,15 +1,8 @@
 const { menus } = require("../../menus/gerirMenus");
+const { iniciarFluxoAtendimento } = require("./atendimento"); 
+require('dotenv').config();
 
-// ID do grupo de suporte técnico
-const grupoID = '120363418165776990@g.us';
-
-// Etapas do questionário
-const etapasChamado = [
-    { key: 'empresa', pergunta: "Informe o nome da empresa:" },
-    { key: 'usuario', pergunta: "Informe o nome do usuário:" },
-    { key: 'titulo', pergunta: "Informe o título do chamado:" },
-    { key: 'descricao', pergunta: "Descreva a situação detalhadamente:" }
-];
+const GRUPO_ID_EQUIPETEC = process.env.GRUPO_ID_EQUIPETEC;
 
 async function tratarMensagemEquipeTec(msg, client, user, users) {
     const contact = msg.from;
@@ -23,7 +16,7 @@ async function tratarMensagemEquipeTec(msg, client, user, users) {
     }
 
     // Encerrar sessão
-    if (body === '00' || body === 'encerrar sessão') {
+    if (body === '#' || body === 'encerrar sessão') {
         user.stage = 'ENDED';
         user.menuStack = [];
         return client.sendMessage(contact, 'Até a próxima!');
@@ -49,35 +42,16 @@ async function tratarMensagemEquipeTec(msg, client, user, users) {
         return;
     }
 
-    // ➤ Coleta de dados (etapas do questionário)
-    if (user.stage === "CHAMADO") {
-        const etapaAtual = etapasChamado[user.chamadoEtapa];
-        user.dadosChamado[etapaAtual.key] = bodyRaw;
-        user.chamadoEtapa++;
-
-        if (user.chamadoEtapa < etapasChamado.length) {
-            const proximaEtapa = etapasChamado[user.chamadoEtapa];
-            await client.sendMessage(contact, proximaEtapa.pergunta);
-        } else {
-            const dados = user.dadosChamado;
-            const mensagemGrupo =
-`📣 *Nova solicitação de atendimento recebido*
-🏢 *Empresa:* ${dados.empresa}
-👤 *Usuário:* ${dados.usuario}
-📌 *Título:* ${dados.titulo}
-📝 *Descrição:* ${dados.descricao}
-📱 *Origem:* ${contact}`;
-
-            await client.sendMessage(grupoID, mensagemGrupo);
-            await client.sendMessage(contact, "✅ Sua solicitação foi enviada ao responsável. Aguarde o atendimento.");
-
-            // Retorna ao menu EQUIPE_TEC
-            user.stage = "EQUIPE_TEC";
-            user.dadosChamado = null;
-            user.chamadoEtapa = null;
-            user.menuStack.push("EQUIPE_TEC");
-            await client.sendMessage(contact, menus["EQUIPE_TEC"].text);
-        }
+      // tenta delegar ao fluxo de atendimento (retorno true => já foi tratado)
+    const atendimentoOpts = {
+        grupoID: GRUPO_ID_EQUIPETEC,
+        retornoMenu: 'EQUIPE_TEC',
+        trigger: '*',
+        endSessionAfterCreate: true // <- importante: encerra sessão após criar o chamado
+    };
+    const atendimentoTratado = await iniciarFluxoAtendimento(client, contact, user, bodyRaw, atendimentoOpts);
+    if (atendimentoTratado) {
+        // o módulo já respondeu e encerrou a sessão (se endSessionAfterCreate = true)
         return;
     }
 
