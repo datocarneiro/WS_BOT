@@ -3,6 +3,11 @@ const { pushMenu, popMenu, getCurrentMenuText } = require('../../utils/navegacao
 const { consultarPedido } = require('./consultarPedido');
 const { consultarProduto } = require('./consultarProduto');
 const { consultarRecebimento } = require('./consultarRecebimento');
+const { iniciarFluxoAtendimento} = require('../atendimento');
+require('dotenv').config();
+
+const GRUPO_ID_OPERACIONAL = process.env.GRUPO_ID_OPERACIONAL;
+
 
 async function tratarMensagemOperacional(msg, client, user, users) {
 	const contact = msg.from;
@@ -16,7 +21,7 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 
 
 	// Encerrar sessão
-	if (body === '00' || body === 'encerrar sessão') {
+	if (body === '#' || body === 'encerrar sessão') {
 		console.log('>> comando de encerrar sessão');
 		user.stage = 'ENDED';
 		user.menuStack = [];
@@ -33,27 +38,46 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 		return;
 	}
 
+
+	// tenta delegar ao fluxo de atendimento (retorno true => já foi tratado)
+	const atendimentoOpts = {
+		grupoID: GRUPO_ID_OPERACIONAL,
+		retornoMenu: 'OPERACIONAL',
+		trigger: '*',
+		endSessionAfterCreate: true // <- importante: encerra sessão após criar o chamado
+	};
+	const atendimentoTratado = await iniciarFluxoAtendimento(client, contact, user, bodyRaw, atendimentoOpts);
+	if (atendimentoTratado) {
+		// o módulo já respondeu e encerrou a sessão (se endSessionAfterCreate = true)
+		return;
+	}
+
 	// DEBUG: antes do switch
 	console.log('>> entrando no switch de stage:', user.stage);
 
 	switch (user.stage) {
-		case 'OPERACIONAL': {
+			case 'OPERACIONAL': {
 			const nextStage = menus.OPERACIONAL.options[bodyRaw];
-			console.log('NEXTSTAGE encontrado em menus.OPERACIONAL.options:', nextStage);
-
 			if (!nextStage) {
-				console.log('>> opção inválida para OPERACIONAL:', bodyRaw);
 				await client.sendMessage(contact, '❌ Opção inválida.');
 				await client.sendMessage(contact, menus.OPERACIONAL.text);
 				return;
 			}
 
-			console.log(`>> pushMenu para stage "${nextStage}"`);
+			// Se for uma das opções 4, 5 ou 6, manda a resposta e já o menu
+			if (['4', '5', '6'].includes(bodyRaw)) {
+				const resposta = menus[nextStage].text;
+				await client.sendMessage(contact, resposta);
+				await client.sendMessage(contact, menus.OPERACIONAL.text);
+				return;
+			}
+
+			// Demais opções seguem fluxo normal
 			pushMenu(user, nextStage);
-			console.log('user.stage após pushMenu:', user.stage);
 			await client.sendMessage(contact, getCurrentMenuText(user));
 			return;
 		}
+
 
 		case 'OPERACIONAL_PEDIDO_INPUT': {
 			console.log('>> caso OPERACIONAL_PEDIDO_INPUT. Chamando consultarPedido');
@@ -107,6 +131,8 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 			return;
 		}
 	}
+
+	
 }
 
 module.exports = { tratarMensagemOperacional };

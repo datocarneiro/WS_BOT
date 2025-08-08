@@ -7,7 +7,7 @@ module.exports = {
 	4 – ⏰  Horário de Recebimento (Doca)
 	5 – 🚚  Horário de Expedição (Doca)
 	6 – 🕗  Horário de Funcionamento
-	7 – 🤝  Falar com um atendente
+	* – 🤝  Solicitar atendimento
 	0 - ⬅️  Voltar
 	# - 🛑  Encerrar`,
 
@@ -18,7 +18,7 @@ module.exports = {
 		"4": "OPERACIONAL_HORARIO_RECEBIMENTO",
 		"5": "OPERACIONAL_HORARIO_EXPEDICAO",
 		"6": "OPERACIONAL_HORARIO_FUNCIONAMENTO",
-		"7": "OPERACIONAL_FALAR_ATENDENTE"
+		"*": "OPERACIONAL_SOLICITAR_ATENDIMENTO"
 		}
 	},
 
@@ -56,8 +56,7 @@ module.exports = {
 		next: "OPERACIONAL"
 	},
 
-	OPERACIONAL_FALAR_ATENDENTE: {
-		text: `🤝 Você será conectado a um atendente em instantes. Aguarde…`,
+	OPERACIONAL_SOLICITAR_ATENDIMENTO: {
 		next: "OPERACIONAL"
 	}
 };
