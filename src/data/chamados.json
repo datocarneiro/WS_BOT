@@ -1,0 +1,75 @@
+{
+  "lastId": 5,
+  "tickets": {
+    "00000001": {
+      "id": "00000001",
+      "tag": "#ID:00000001",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "jkljklgjkl",
+        "usuario": "gjkljkl",
+        "titulo": "kjlgjklgkjl",
+        "descricao": "ljkljgkljkglgjkl"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T15:46:16.146Z",
+      "history": []
+    },
+    "00000002": {
+      "id": "00000002",
+      "tag": "#ID:00000002",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "Pfdgfhyuyutyu",
+        "usuario": "utyuytu",
+        "titulo": "tyuytuty",
+        "descricao": "uytutyutyuteyuetyutyuyt"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T15:54:39.939Z",
+      "history": []
+    },
+    "00000003": {
+      "id": "00000003",
+      "tag": "#ID:00000003",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "gdfgdf",
+        "usuario": "gdfsgfdg",
+        "titulo": "fdgdfsgdfsg",
+        "descricao": "gdfggrttyhrt"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T15:56:24.406Z",
+      "history": []
+    },
+    "00000004": {
+      "id": "00000004",
+      "tag": "#ID:00000004",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "aaaa",
+        "usuario": "aaaaaaaa aaaa",
+        "titulo": "aaa aaa aaa",
+        "descricao": "aaaa aaaaaaa aaaaaaa aaaa"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T15:59:54.137Z",
+      "history": []
+    },
+    "00000005": {
+      "id": "00000005",
+      "tag": "#ID:00000005",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "AAA AAA",
+        "usuario": "AAA AAA",
+        "titulo": "Aaa Aaa",
+        "descricao": "aaa aaa aaa"
+      },
+      "status": "open",
+      "createdAt": "2025-08-08T16:06:25.001Z",
+      "history": []
+    }
+  }
+}

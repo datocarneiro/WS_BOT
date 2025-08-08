@@ -3,6 +3,11 @@ const { pushMenu, popMenu, getCurrentMenuText } = require('../../utils/navegacao
 const { consultarPedido } = require('./consultarPedido');
 const { consultarProduto } = require('./consultarProduto');
 const { consultarRecebimento } = require('./consultarRecebimento');
+const { iniciarFluxoAtendimento} = require('../atendimento');
+require('dotenv').config();
+
+const GRUPO_ID_OPERACIONAL = process.env.GRUPO_ID_OPERACIONAL;
+
 
 async function tratarMensagemOperacional(msg, client, user, users) {
 	const contact = msg.from;
@@ -30,6 +35,20 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 		popMenu(user);
 		console.log('user.stage após popMenu:', user.stage);
 		await client.sendMessage(contact, getCurrentMenuText(user));
+		return;
+	}
+
+
+	// tenta delegar ao fluxo de atendimento (retorno true => já foi tratado)
+	const atendimentoOpts = {
+		grupoID: GRUPO_ID_OPERACIONAL,
+		retornoMenu: 'OPERACIONAL',
+		trigger: '*',
+		endSessionAfterCreate: true // <- importante: encerra sessão após criar o chamado
+	};
+	const atendimentoTratado = await iniciarFluxoAtendimento(client, contact, user, bodyRaw, atendimentoOpts);
+	if (atendimentoTratado) {
+		// o módulo já respondeu e encerrou a sessão (se endSessionAfterCreate = true)
 		return;
 	}
 
@@ -107,6 +126,8 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 			return;
 		}
 	}
+
+	
 }
 
 module.exports = { tratarMensagemOperacional };
