@@ -1,0 +1,248 @@
+{
+  codigo: 'OR000000839191',
+  cnpjRemetenteWms: '09584097000100',
+  chaveNotaVenda: '',
+  cfopNotaVenda: '',
+  reservas: [],
+  ordens: {
+    codigo: 'OR000000839191',
+    cnpjRemetente: '09584097000100',
+    produtos: [],
+    quantidadeVolumes: 1,
+    pesoTotal: '0.64'
+  },
+  dados: [
+    {
+      codigoVolume: 'VL000000552890',
+      pesoVolume: 643,
+      pesoVolumeFormatado: '643,00 g',
+      larguraVolume: 150,
+      larguraVolumeFormatado: '150,00 mm',
+      comprimentoVolume: 150,
+      comprimentoVolumeFormatado: '150,00 mm',
+      alturaVolume: 260,
+      alturaVolumeFormatado: '260,00 mm',
+      checkouts: [Array],
+      indice: 1
+    }
+  ],
+  saidas: [
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761158',
+      produto: '9788561761158',
+      pesoProduto: 440,
+      descricaoProduto: 'TELOS LIVRO TRES PROTOCOLOS DA QUINTA DIMENSÃO',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761271',
+      produto: '9788561761271',
+      pesoProduto: 105,
+      descricaoProduto: 'PRESENÇA SUTIL',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761295',
+      produto: '9788561761295',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO DOIS – TEMAS ATUAIS',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761301',
+      produto: '9788561761301',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO TRÊS – DIREÇÕES',
+      quantidade: 1
+    }
+  ]
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761295',
+      produto: '9788561761295',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO DOIS – TEMAS ATUAIS',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761301',
+      produto: '9788561761301',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO TRÊS – DIREÇÕES',
+      quantidade: 1
+    }
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761295',
+      produto: '9788561761295',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO DOIS – TEMAS ATUAIS',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761301',
+      produto: '9788561761301',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO TRÊS – DIREÇÕES',
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761295',
+      produto: '9788561761295',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO DOIS – TEMAS ATUAIS',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761301',
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761295',
+      produto: '9788561761295',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO DOIS – TEMAS ATUAIS',
+      quantidade: 1
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761295',
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761295',
+    {
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761288',
+      produto: '9788561761288',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO UM – MISTÉRIOS DA EXISTÊNCIA',
+      quantidade: 1
+    },
+    {
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+    {
+      codigoDeposito: 'DP000000000034',
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761295',
+      produto: '9788561761295',
+      pesoProduto: 0,
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO DOIS – TEMAS ATUAIS',
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO DOIS – TEMAS ATUAIS',
+      quantidade: 1
+    },
+    {
+      codigoDeposito: 'DP000000000034',
+      codigoDeposito: 'DP000000000034',
+      codigoDeposito: 'DP000000000034',
+      descricaoDeposito: 'ALMENARA2',
+      codigoProduto: '9788561761301',
+      produto: '9788561761301',
+      pesoProduto: 0,
+      descricaoProduto: 'ASCENSÃO E TRANSIÇÃO PLANETÁRIA COM ARCANJO MIGUEL: LIVRO TRÊS – DIREÇÕES',
+      quantidade: 1
+    }
+  ]
+}
