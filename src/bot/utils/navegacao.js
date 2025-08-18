@@ -10,6 +10,8 @@ Atualiza user.stage	Define o novo menu como "menu atual"
 */
 
 
+
+
 // Navegar para um novo menu (função pushMenu)
 function pushMenu(user, stage) {
   if (user.menuStack.at(-1) !== stage) {
