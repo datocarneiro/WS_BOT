@@ -7,6 +7,9 @@ const { iniciarFluxoAtendimento} = require('../atendimento');
 require('dotenv').config();
 
 const GRUPO_ID_OPERACIONAL = process.env.GRUPO_ID_OPERACIONAL;
+const MENU_REDUZIDO_PEDIDO = "0 - ⬅️ Voltar\n# - 🛑 Encerrar\n🔍 Ou informe um novo numero de pedido para consulta";
+const MENU_REDUZIDO_PRODUTO = "0 - ⬅️ Voltar\n# - 🛑 Encerrar\n🔍 Ou informe um novo sku para consulta";
+const MENU_REDUZIDO_RECEBIMENTO = "0 - ⬅️ Voltar\n# - 🛑 Encerrar\n🔍 Ou informe um novo cod RB para consulta";
 
 
 async function tratarMensagemOperacional(msg, client, user, users) {
@@ -83,9 +86,8 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 			console.log('>> caso OPERACIONAL_PEDIDO_INPUT. Chamando consultarPedido');
 			const pedido = bodyRaw;
 			const pedidoTratado = pedido.trim();
-			const NAVIGATION_TEXT = menus.OPERACIONAL.text;
+			const NAVIGATION_TEXT = MENU_REDUZIDO_PEDIDO;
 			await consultarPedido(pedidoTratado, client, contact, NAVIGATION_TEXT);
-			popMenu(user);
 			return;
 		}
 
@@ -93,9 +95,8 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 			console.log('>> caso OPERACIONAL_SALDO_INPUT. Chamando consultarProduto');
 			const codigoItem = bodyRaw;
 			const codigoItemTratado = codigoItem.trim();
-			const NAVIGATION_TEXT = menus.OPERACIONAL.text;
+			const NAVIGATION_TEXT = MENU_REDUZIDO_PRODUTO;
 			await consultarProduto(codigoItemTratado, client, contact, NAVIGATION_TEXT);
-			popMenu(user);
 			return;
 		}
 
@@ -104,9 +105,8 @@ async function tratarMensagemOperacional(msg, client, user, users) {
 			console.log('>> caso OPERACIONAL_RECEBIMENTO_INPUT. Chamando consultarProduto');
 			const codigoRB = bodyRaw;
 			const codigoRBTratado = codigoRB.trim();
-			const NAVIGATION_TEXT = menus.OPERACIONAL.text;
+			const NAVIGATION_TEXT = MENU_REDUZIDO_RECEBIMENTO;
 			await consultarRecebimento(codigoRBTratado, client, contact, NAVIGATION_TEXT);
-			popMenu(user);
 			return;
 		}
 

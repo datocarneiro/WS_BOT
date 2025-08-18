@@ -10,6 +10,7 @@ const menus = {
 	...financeiro,
 	...operacional,
 	...equipeTec,
+
 };
 
 module.exports = { menus };

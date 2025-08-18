@@ -1,5 +1,5 @@
 {
-  "lastId": 11,
+  "lastId": 18,
   "tickets": {
     "00000001": {
       "id": "00000001",
@@ -153,6 +153,104 @@
       },
       "status": "open",
       "createdAt": "2025-08-08T18:55:28.394Z",
+      "history": []
+    },
+    "00000012": {
+      "id": "00000012",
+      "tag": "#ID:00000012",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "EMPRESA DATO TESTE",
+        "usuario": "DATO CARNEIRO",
+        "titulo": "Titulo Teste",
+        "descricao": "Descrição teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste"
+      },
+      "status": "open",
+      "createdAt": "2025-08-18T20:08:10.505Z",
+      "history": []
+    },
+    "00000013": {
+      "id": "00000013",
+      "tag": "#ID:00000013",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "OPERACIONAL TESTE",
+        "usuario": "USUÁRIO OPERACIONAL",
+        "titulo": "Titulo Operacional Teste",
+        "descricao": "Descrição Operacional teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste"
+      },
+      "status": "open",
+      "createdAt": "2025-08-18T20:09:23.918Z",
+      "history": []
+    },
+    "00000014": {
+      "id": "00000014",
+      "tag": "#ID:00000014",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "DATO TESTE",
+        "usuario": "DATO TESTE",
+        "titulo": "Dato Teste",
+        "descricao": "Dato teste"
+      },
+      "status": "open",
+      "createdAt": "2025-08-18T20:30:13.241Z",
+      "history": []
+    },
+    "00000015": {
+      "id": "00000015",
+      "tag": "#ID:00000015",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "DATO TESTE",
+        "usuario": "DATO TESTE",
+        "titulo": "Dato Teste",
+        "descricao": "Dato teste"
+      },
+      "status": "open",
+      "createdAt": "2025-08-18T20:30:57.646Z",
+      "history": []
+    },
+    "00000016": {
+      "id": "00000016",
+      "tag": "#ID:00000016",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "DATO TESTE",
+        "usuario": "DATO TESTE",
+        "titulo": "Dato Teste",
+        "descricao": "Dato teste"
+      },
+      "status": "open",
+      "createdAt": "2025-08-18T20:31:22.893Z",
+      "history": []
+    },
+    "00000017": {
+      "id": "00000017",
+      "tag": "#ID:00000017",
+      "contact": "554195750138",
+      "dados": {
+        "empresa": "DATO TESTE 2",
+        "usuario": "DATO TESTE 2",
+        "titulo": "Dato Teste 2",
+        "descricao": "Dato teste 2"
+      },
+      "status": "open",
+      "createdAt": "2025-08-18T20:32:06.662Z",
+      "history": []
+    },
+    "00000018": {
+      "id": "00000018",
+      "tag": "#ID:00000018",
+      "contact": "554196849091",
+      "dados": {
+        "empresa": "AMPLO LOGÍSTICA",
+        "usuario": "MARCOSBOEIRA",
+        "titulo": "Consultar Pedido",
+        "descricao": "ÓIFHEG[ihg[GIH[igh[ihgva[iv[ihgvGJHgjoIGOIGBHA[HGB"
+      },
+      "status": "open",
+      "createdAt": "2025-08-18T20:36:12.326Z",
       "history": []
     }
   }
