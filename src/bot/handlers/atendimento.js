@@ -74,7 +74,6 @@ function formatId(num) {
 
 /* ---------- Ticket persistence ---------- */
 async function createTicket(dadosRaw = {}, contact) {
-  // aplica formatações desejadas direto aqui
   const dados = {
     empresa: safeUpper(dadosRaw.empresa),
     usuario: safeUpper(dadosRaw.usuario),
@@ -83,9 +82,17 @@ async function createTicket(dadosRaw = {}, contact) {
   };
 
   const store = await loadStore();
-  const next = store.lastId + 1;
+
+  let next = store.lastId + 1;
+  let id = formatId(next);
+
+  // 🔒 Garante que o ID não existe (mesmo que usuários diferentes criem ao mesmo tempo)
+  while (store.tickets[id]) {
+    next++;
+    id = formatId(next);
+  }
+
   store.lastId = next;
-  const id = formatId(next);
   const tag = `#ID:${id}`;
   const origin = normalizeOrigin(contact);
 
@@ -103,6 +110,7 @@ async function createTicket(dadosRaw = {}, contact) {
   await saveStore(store);
   return ticket;
 }
+
 
 async function getTicketById(idOrTag) {
   const store = await loadStore();
@@ -176,9 +184,9 @@ async function iniciarFluxoAtendimento(client, contact, user, bodyRaw, opts = {}
   🕒 *Criado em:* ${ticket.createdAt}
   🏢 *Empresa:* ${ticket.dados.empresa}
   👤 *Usuário:* ${ticket.dados.usuario}
+  📱 *Origem:* ${origin}\n
   📌 *Título:* ${ticket.dados.titulo}
-  📝 *Descrição:* ${ticket.dados.descricao}
-  📱 *Origem:* ${origin}`;
+  📝 *Descrição:* ${ticket.dados.descricao}`;
 
       // envia para o grupo
       await client.sendMessage(localOpts.grupoID, mensagemGrupo);
