@@ -13,7 +13,7 @@ async function consultarPedido(pedido, client, contact, NAVIGATION_TEXT) {
         }
 
         if (dados.erro) {
-            await client.sendMessage(contact, `⚠️ Erro: ${dados.erro}`);
+            await client.sendMessage(contact, `⚠️ Erro: ${dados.erro}, informe novamente`);
             return;
         }
 

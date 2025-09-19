@@ -3,6 +3,7 @@ version: "3.8"
 services:
   bot:
     build: .
+    container_name: ws_bot
     volumes:
       - ./session:/app/session
     restart: unless-stopped
