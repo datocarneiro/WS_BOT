@@ -10,13 +10,27 @@ client.on("qr", (qr) => {
 });
 
 
-// Quando o cliente estiver pronto
-client.on("ready", () => {
-  console.log("✅ Bot está pronto!");
+// // Quando o cliente estiver pronto
+// client.on("ready", () => {
+//   console.log("✅ Bot está pronto!");
+// });
+
+
+client.on('authenticated', () => {
+  console.log('✅ Autenticação bem-sucedida');
 });
 
+client.on('auth_failure', (msg) => {
+  console.log('❌ Falha na autenticação:', msg);
+});
 
+client.on('ready', () => {
+  console.log('🟢 Cliente pronto');
+});
 
+client.on('disconnected', (reason) => {
+  console.log('⚠️ Cliente desconectado:', reason);
+});
 
 client.on("message", async (msg) => {
     // Ignora mensagens vindas de grupos
